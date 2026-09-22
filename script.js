@@ -3,7 +3,7 @@ const products = [
     name: "DJI Mini 5 Pro",
     category: "Dron compacto",
     symbol: "DJI",
-    image: "assets/products/integrated/Producto_1.png",
+    image: "assets/products/Producto_1.jpeg",
     description: "Dron compacto para captura aerea, viajes, contenido visual y vuelos creativos.",
     features: [
       "Diseno ultraligero: Facil de transportar y utilizar en cualquier lugar.",
@@ -17,7 +17,7 @@ const products = [
     name: "Samsung Galaxy Buds 4 Pro",
     category: "Audio inalambrico",
     symbol: "B4",
-    image: "assets/products/integrated/Producto_2.png",
+    image: "assets/products/Producto_2.jpeg",
     description: "Audifonos premium para llamadas, musica, concentracion y uso diario.",
     features: [
       "Sonido envolvente: Brinda una experiencia de audio clara e inmersiva.",
@@ -31,7 +31,7 @@ const products = [
     name: "Samsung Galaxy S26 Ultra",
     category: "Smartphone premium",
     symbol: "S26",
-    image: "assets/products/integrated/Producto_3.png",
+    image: "assets/products/Producto_3.jpeg",
     description: "Telefono de gama alta para productividad, fotografia, video y multitarea.",
     features: [
       "Pantalla de alta resolucion: Ofrece imagenes brillantes, nitidas y detalladas.",
@@ -45,7 +45,7 @@ const products = [
     name: "Samsung OLED 48' S83H",
     category: "Televisor OLED",
     symbol: "TV",
-    image: "assets/products/integrated/Producto_4.png",
+    image: "assets/products/Producto_4.jpeg",
     description: "Pantalla OLED de 48 pulgadas para entretenimiento, presentaciones y contenido visual.",
     features: [
       "Pantalla OLED: Proporciona colores intensos y negros profundos.",
@@ -59,7 +59,7 @@ const products = [
     name: "Dron Profesional DJI Air 3",
     category: "Dron profesional",
     symbol: "AIR",
-    image: "assets/products/integrated/Producto_5.png",
+    image: "assets/products/Producto_5.jpeg",
     description: "Dron avanzado para produccion audiovisual, inspeccion y captura aerea profesional.",
     features: [
       "Camara dual: Permite realizar tomas amplias y acercamientos detallados.",
@@ -73,7 +73,7 @@ const products = [
     name: "iPhone 17 Pro Max",
     category: "Smartphone premium",
     symbol: "17",
-    image: "assets/products/integrated/Producto_6.png",
+    image: "assets/products/Producto_6.jpeg",
     description: "Smartphone de alto rendimiento para fotografia, video, trabajo movil y ecosistema Apple.",
     features: [
       "Pantalla avanzada: Ofrece una visualizacion brillante y de gran calidad.",
@@ -87,7 +87,7 @@ const products = [
     name: "Estacion de Trabajo Dell Precision 3680",
     category: "Workstation",
     symbol: "DELL",
-    image: "assets/products/integrated/Producto_7.png",
+    image: "assets/products/Producto_7.jpeg",
     description: "Equipo de escritorio profesional para diseno, ingenieria, datos y cargas exigentes.",
     features: [
       "Alto rendimiento: Disenada para ejecutar programas profesionales y exigentes.",
@@ -101,7 +101,7 @@ const products = [
     name: "Sistema de Captura Facial SENA",
     category: "Captura facial",
     symbol: "3D",
-    image: "assets/products/integrated/Producto_8.png",
+    image: "assets/products/Producto_8.jpeg",
     description: "Sistema orientado a registrar expresiones faciales para animacion, formacion y produccion digital.",
     features: [
       "Reconocimiento facial: Permite identificar personas mediante sus caracteristicas faciales.",
@@ -115,7 +115,7 @@ const products = [
     name: "Camara Sony Alpha 7 IV (A7IV)",
     category: "Camara mirrorless",
     symbol: "A7",
-    image: "assets/products/integrated/Producto_9.png",
+    image: "assets/products/Producto_9.jpeg",
     description: "Camara hibrida para fotografia profesional, video, retrato, producto y produccion de contenido.",
     features: [
       "Sensor de alta resolucion: Captura fotografias con gran detalle y nitidez.",
@@ -129,7 +129,7 @@ const products = [
     name: "Servidor Rack HP ProLiant DL20",
     category: "Servidor rack",
     symbol: "HP",
-    image: "assets/products/integrated/Producto_10.png",
+    image: "assets/products/Producto_10.jpeg",
     description: "Servidor compacto para infraestructura, archivos, servicios internos y pequenas empresas.",
     features: [
       "Formato compacto: Su diseno permite instalarlo facilmente en un rack empresarial.",
