@@ -148,7 +148,6 @@ const modalSideCategory = document.getElementById("modal-side-category");
 const modalTitle = document.getElementById("modal-title");
 const modalDescription = document.getElementById("modal-description");
 const modalFeatures = document.getElementById("modal-features");
-const modalSymbol = document.getElementById("modal-symbol");
 const modalImage = document.getElementById("modal-image");
 const closeModal = document.getElementById("close-modal");
 
@@ -157,8 +156,7 @@ function renderProducts() {
     <article class="product">
       <div class="product-visual">
         <span class="product-tag">${product.category}</span>
-        <img class="product-photo" src="${product.image}" alt="${product.name}" loading="lazy" onerror="this.hidden=true;this.nextElementSibling.hidden=false;">
-        <div class="product-symbol" hidden>${product.symbol}</div>
+        <img class="product-photo" src="${product.image}" alt="${product.name}" loading="lazy">
       </div>
       <div class="product-info">
         <h3>${product.name}</h3>
@@ -175,11 +173,8 @@ function openProduct(index) {
   modalSideCategory.textContent = product.category;
   modalTitle.textContent = product.name;
   modalDescription.textContent = product.description;
-  modalSymbol.textContent = product.symbol;
   modalImage.src = product.image;
   modalImage.alt = product.name;
-  modalImage.hidden = false;
-  modalSymbol.hidden = true;
   modalFeatures.innerHTML = product.features.map((feature, featureIndex) => `
     <li>
       <span>${String(featureIndex + 1).padStart(2, "0")}</span>
