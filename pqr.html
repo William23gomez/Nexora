@@ -308,6 +308,7 @@ button {
         <input type="hidden" name="_subject" value="Nueva PQR desde NEXORA">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_next" id="next-url" value="">
         <input type="text" name="_honey" style="display:none">
 
         <div class="row">
@@ -376,5 +377,8 @@ button {
     </section>
   </div>
 </main>
+<script>
+  document.getElementById('next-url').value = `${window.location.origin}/enviado.html`;
+</script>
 </body>
 </html>

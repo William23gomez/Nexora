@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>NEXORA | PQR enviada</title>
+<style>
+:root{
+  --text:#fbf9ff;
+  --muted:#c4b9d9;
+  --line:rgba(192,132,252,.22);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  min-height:100vh;
+  display:grid;
+  place-items:center;
+  padding:24px;
+  font-family:Arial,Helvetica,sans-serif;
+  color:var(--text);
+  background:
+    radial-gradient(circle at 15% 15%,rgba(124,58,237,.22),transparent 28%),
+    radial-gradient(circle at 85% 30%,rgba(168,85,247,.20),transparent 30%),
+    linear-gradient(135deg,#080311 0%,#16082b 48%,#0b0418 100%);
+}
+body:before{
+  content:"";
+  position:fixed;
+  inset:0;
+  pointer-events:none;
+  opacity:.18;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px,transparent 1px),
+                   linear-gradient(90deg,rgba(255,255,255,.025) 1px,transparent 1px);
+  background-size:42px 42px;
+}
+.panel{
+  width:min(560px,100%);
+  position:relative;
+  z-index:1;
+  text-align:center;
+  padding:42px 30px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:linear-gradient(145deg,rgba(39,20,69,.72),rgba(18,9,34,.90));
+  box-shadow:0 24px 60px rgba(0,0,0,.30);
+}
+.mark{
+  width:58px;
+  height:58px;
+  margin:0 auto 22px;
+  display:grid;
+  place-items:center;
+  border-radius:18px;
+  background:linear-gradient(135deg,#6d28d9,#9b5cff,#c084fc);
+  box-shadow:0 0 24px rgba(155,92,255,.42);
+  font-size:30px;
+  font-weight:900;
+}
+h1{
+  margin-bottom:12px;
+  font-size:clamp(34px,7vw,54px);
+  line-height:1;
+}
+p{
+  margin:0 auto 28px;
+  max-width:410px;
+  color:var(--muted);
+  line-height:1.6;
+}
+.actions{
+  display:flex;
+  justify-content:center;
+  gap:12px;
+  flex-wrap:wrap;
+}
+a{
+  min-height:46px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:0 20px;
+  border-radius:28px;
+  text-decoration:none;
+  font-weight:800;
+  color:#fff;
+}
+.primary{
+  background:linear-gradient(100deg,#6d28d9,#9b5cff,#c084fc);
+  box-shadow:0 10px 30px rgba(109,40,217,.28);
+}
+.secondary{
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.03);
+}
+</style>
+</head>
+<body>
+<main class="panel">
+  <div class="mark">✓</div>
+  <h1>Listo, enviado</h1>
+  <p>Tu PQR fue enviada correctamente. NEXORA revisara tu solicitud y respondera por los datos que registraste.</p>
+  <div class="actions">
+    <a class="primary" href="index.html">Volver al inicio</a>
+    <a class="secondary" href="pqr.html">Enviar otra PQR</a>
+  </div>
+</main>
+</body>
+</html>
