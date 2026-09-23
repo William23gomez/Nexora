@@ -179,6 +179,8 @@ const cartTotal = document.getElementById("cart-total");
 const checkoutButton = document.getElementById("checkout-button");
 const clearCartButton = document.getElementById("clear-cart");
 const checkoutMessage = document.getElementById("checkout-message");
+const menuToggle = document.getElementById("menu-toggle");
+const navActions = document.querySelector(".nav-actions");
 
 const money = new Intl.NumberFormat("es-CO", {
   style: "currency",
@@ -289,6 +291,12 @@ function hideCart() {
   document.body.classList.remove("modal-open");
 }
 
+function closeMobileMenu() {
+  menuToggle.classList.remove("active");
+  menuToggle.setAttribute("aria-expanded", "false");
+  navActions.classList.remove("active");
+}
+
 function openProduct(index) {
   const product = products[index];
   activeProductIndex = index;
@@ -325,10 +333,12 @@ document.addEventListener("click", event => {
 
   if (productButton) {
     openProduct(Number(productButton.dataset.product));
+    closeMobileMenu();
   }
 
   if (addCartButton) {
     addToCart(Number(addCartButton.dataset.addCart));
+    closeMobileMenu();
   }
 
   if (increaseButton) {
@@ -364,6 +374,17 @@ modalAddCart.addEventListener("click", () => {
   openCart();
 });
 openCartButton.addEventListener("click", openCart);
+openCartButton.addEventListener("click", closeMobileMenu);
+menuToggle.addEventListener("click", () => {
+  const isOpen = navActions.classList.toggle("active");
+  menuToggle.classList.toggle("active", isOpen);
+  menuToggle.setAttribute("aria-expanded", String(isOpen));
+});
+navActions.addEventListener("click", event => {
+  if (event.target.closest("a")) {
+    closeMobileMenu();
+  }
+});
 closeCartButton.addEventListener("click", hideCart);
 clearCartButton.addEventListener("click", () => {
   cart = [];
@@ -384,6 +405,7 @@ document.addEventListener("keydown", event => {
   if (event.key === "Escape") {
     hideModal();
     hideCart();
+    closeMobileMenu();
   }
 });
 
