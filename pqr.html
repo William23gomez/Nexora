@@ -304,7 +304,7 @@ button {
         <p>Los campos marcados con <span class="required">*</span> son obligatorios.</p>
       </div>
 
-      <form id="pqr-form" action="https://formsubmit.co/oscarinogonzalino@gmail.com" method="POST">
+      <form id="pqr-form" action="/api/pqr" method="POST">
         <input type="hidden" name="_subject" value="Nueva PQR desde NEXORA">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
@@ -372,14 +372,17 @@ button {
           <button class="back" type="reset">Limpiar</button>
         </div>
 
-        <p class="note">Este formulario usa FormSubmit. Si es el primer envio, revisa en oscarinogonzalino@gmail.com el correo de activacion de FormSubmit y confirma el formulario para recibir las PQR.</p>
+        <p class="note" id="form-status">Al enviar, la PQR se mandara al correo oscarinogonzalino@gmail.com.</p>
       </form>
     </section>
   </div>
 </main>
 <script>
   document.getElementById('next-url').value = `${window.location.origin}/enviado.html`;
-  document.getElementById('pqr-form').addEventListener('submit', event => {
+  document.getElementById('pqr-form').addEventListener('submit', async event => {
+    event.preventDefault();
+    const form = event.currentTarget;
+    const status = document.getElementById('form-status');
     const formData = new FormData(event.currentTarget);
     const record = {
       id: `PQR-${Date.now()}`,
@@ -394,6 +397,24 @@ button {
     const records = JSON.parse(localStorage.getItem('nexora_pqrs') || '[]');
     records.push(record);
     localStorage.setItem('nexora_pqrs', JSON.stringify(records));
+
+    status.textContent = 'Enviando PQR...';
+
+    try {
+      const response = await fetch(form.action, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(record)
+      });
+
+      if (!response.ok) {
+        throw new Error('No se pudo enviar el correo.');
+      }
+
+      window.location.href = document.getElementById('next-url').value;
+    } catch (error) {
+      status.textContent = 'La PQR quedo guardada, pero falta configurar el servicio de correo en Vercel para enviarla al email.';
+    }
   });
 </script>
 </body>
