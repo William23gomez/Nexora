@@ -141,6 +141,23 @@ const products = [
   }
 ];
 
+const productPrices = [
+  3890000,
+  899000,
+  5790000,
+  3290000,
+  5490000,
+  6890000,
+  7490000,
+  12900000,
+  9790000,
+  4590000
+];
+
+products.forEach((product, index) => {
+  product.price = productPrices[index];
+});
+
 const productGrid = document.getElementById("product-grid");
 const modal = document.getElementById("product-modal");
 const modalCategory = document.getElementById("modal-category");
@@ -150,6 +167,29 @@ const modalDescription = document.getElementById("modal-description");
 const modalFeatures = document.getElementById("modal-features");
 const modalImage = document.getElementById("modal-image");
 const closeModal = document.getElementById("close-modal");
+const cartModal = document.getElementById("cart-modal");
+const openCartButton = document.getElementById("open-cart");
+const closeCartButton = document.getElementById("close-cart");
+const cartCount = document.getElementById("cart-count");
+const cartItems = document.getElementById("cart-items");
+const cartSubtotal = document.getElementById("cart-subtotal");
+const cartTax = document.getElementById("cart-tax");
+const cartTotal = document.getElementById("cart-total");
+const checkoutButton = document.getElementById("checkout-button");
+const clearCartButton = document.getElementById("clear-cart");
+const checkoutMessage = document.getElementById("checkout-message");
+
+const money = new Intl.NumberFormat("es-CO", {
+  style: "currency",
+  currency: "COP",
+  maximumFractionDigits: 0
+});
+
+let cart = JSON.parse(localStorage.getItem("nexora_cart") || "[]");
+
+function saveCart() {
+  localStorage.setItem("nexora_cart", JSON.stringify(cart));
+}
 
 function renderProducts() {
   productGrid.innerHTML = products.map((product, index) => `
@@ -160,11 +200,91 @@ function renderProducts() {
       </div>
       <div class="product-info">
         <h3>${product.name}</h3>
+        <div class="price">${money.format(product.price)}</div>
         <p>${product.description}</p>
       </div>
-      <button class="btn product-action" type="button" data-product="${index}">Ver caracteristicas</button>
+      <div class="product-actions">
+        <button class="btn add-cart" type="button" data-add-cart="${index}">Agregar al carrito</button>
+        <button class="btn product-action" type="button" data-product="${index}">Ver caracteristicas</button>
+      </div>
     </article>
   `).join("");
+}
+
+function getCartTotals() {
+  const subtotal = cart.reduce((sum, item) => {
+    const product = products[item.index];
+    return sum + product.price * item.quantity;
+  }, 0);
+  const tax = Math.round(subtotal * 0.19);
+  return { subtotal, tax, total: subtotal + tax };
+}
+
+function renderCart() {
+  const totalUnits = cart.reduce((sum, item) => sum + item.quantity, 0);
+  cartCount.textContent = totalUnits;
+
+  if (!cart.length) {
+    cartItems.innerHTML = '<div class="cart-empty">Tu carrito esta vacio.</div>';
+  } else {
+    cartItems.innerHTML = cart.map(item => {
+      const product = products[item.index];
+      return `
+        <article class="cart-item">
+          <img src="${product.image}" alt="${product.name}">
+          <div>
+            <h3>${product.name}</h3>
+            <p>${money.format(product.price)} x ${item.quantity}</p>
+          </div>
+          <div class="cart-controls">
+            <button type="button" data-decrease="${item.index}" aria-label="Restar">-</button>
+            <strong>${item.quantity}</strong>
+            <button type="button" data-increase="${item.index}" aria-label="Sumar">+</button>
+            <button class="remove-item" type="button" data-remove="${item.index}" aria-label="Quitar">×</button>
+          </div>
+        </article>
+      `;
+    }).join("");
+  }
+
+  const totals = getCartTotals();
+  cartSubtotal.textContent = money.format(totals.subtotal);
+  cartTax.textContent = money.format(totals.tax);
+  cartTotal.textContent = money.format(totals.total);
+  checkoutButton.disabled = cart.length === 0;
+}
+
+function addToCart(index) {
+  const current = cart.find(item => item.index === index);
+  if (current) {
+    current.quantity += 1;
+  } else {
+    cart.push({ index, quantity: 1 });
+  }
+  checkoutMessage.textContent = `${products[index].name} agregado al carrito.`;
+  saveCart();
+  renderCart();
+}
+
+function updateQuantity(index, quantity) {
+  cart = cart
+    .map(item => item.index === index ? { ...item, quantity } : item)
+    .filter(item => item.quantity > 0);
+  saveCart();
+  renderCart();
+}
+
+function openCart() {
+  renderCart();
+  cartModal.classList.add("active");
+  cartModal.setAttribute("aria-hidden", "false");
+  document.body.classList.add("modal-open");
+}
+
+function hideCart() {
+  cartModal.classList.remove("active");
+  cartModal.setAttribute("aria-hidden", "true");
+  document.body.classList.remove("modal-open");
 }
 
 function openProduct(index) {
@@ -194,22 +314,68 @@ function hideModal() {
 
 document.addEventListener("click", event => {
   const productButton = event.target.closest("[data-product]");
+  const addCartButton = event.target.closest("[data-add-cart]");
+  const increaseButton = event.target.closest("[data-increase]");
+  const decreaseButton = event.target.closest("[data-decrease]");
+  const removeButton = event.target.closest("[data-remove]");
 
   if (productButton) {
     openProduct(Number(productButton.dataset.product));
   }
 
+  if (addCartButton) {
+    addToCart(Number(addCartButton.dataset.addCart));
+  }
+
+  if (increaseButton) {
+    const index = Number(increaseButton.dataset.increase);
+    const item = cart.find(cartItem => cartItem.index === index);
+    updateQuantity(index, item.quantity + 1);
+  }
+
+  if (decreaseButton) {
+    const index = Number(decreaseButton.dataset.decrease);
+    const item = cart.find(cartItem => cartItem.index === index);
+    updateQuantity(index, item.quantity - 1);
+  }
+
+  if (removeButton) {
+    updateQuantity(Number(removeButton.dataset.remove), 0);
+  }
+
   if (event.target === modal) {
     hideModal();
+  }
+
+  if (event.target === cartModal) {
+    hideCart();
   }
 });
 
 closeModal.addEventListener("click", hideModal);
+openCartButton.addEventListener("click", openCart);
+closeCartButton.addEventListener("click", hideCart);
+clearCartButton.addEventListener("click", () => {
+  cart = [];
+  checkoutMessage.textContent = "";
+  saveCart();
+  renderCart();
+});
+checkoutButton.addEventListener("click", () => {
+  if (!cart.length) return;
+  const orderCode = `NX-${Date.now().toString().slice(-6)}`;
+  checkoutMessage.textContent = `Compra simulada realizada. Codigo de pedido: ${orderCode}.`;
+  cart = [];
+  saveCart();
+  renderCart();
+});
 
 document.addEventListener("keydown", event => {
   if (event.key === "Escape") {
     hideModal();
+    hideCart();
   }
 });
 
 renderProducts();
+renderCart();

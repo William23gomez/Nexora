@@ -16,6 +16,7 @@
     <div class="nav-actions">
       <a class="btn" href="#productos">Ver productos</a>
       <a class="btn" href="pqr.html">PQR</a>
+      <button class="cart-button" type="button" id="open-cart">Carrito <span id="cart-count">0</span></button>
     </div>
   </div>
 </nav>
@@ -101,6 +102,30 @@
       <div class="detail-content">
         <h3>Características principales</h3>
         <ul class="detail-list" id="modal-features"></ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="modal cart-modal" id="cart-modal" aria-hidden="true">
+  <div class="cart-card" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+    <div class="modal-head">
+      <div>
+        <span class="modal-category">Compra simulada</span>
+        <h2 id="cart-title">Carrito</h2>
+        <p>Agrega productos, ajusta cantidades y realiza un simulacro de compra.</p>
+      </div>
+      <button class="close" type="button" id="close-cart" aria-label="Cerrar">×</button>
+    </div>
+    <div class="cart-body">
+      <div class="cart-items" id="cart-items"></div>
+      <div class="cart-summary">
+        <div class="summary-row"><span>Subtotal</span><strong id="cart-subtotal">$0</strong></div>
+        <div class="summary-row"><span>IVA estimado</span><strong id="cart-tax">$0</strong></div>
+        <div class="summary-row total"><span>Total</span><strong id="cart-total">$0</strong></div>
+        <button class="btn checkout-button" type="button" id="checkout-button">Simular compra</button>
+        <button class="secondary clear-cart" type="button" id="clear-cart">Vaciar carrito</button>
+        <p class="cart-note" id="checkout-message"></p>
       </div>
     </div>
   </div>

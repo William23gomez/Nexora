@@ -304,7 +304,7 @@ button {
         <p>Los campos marcados con <span class="required">*</span> son obligatorios.</p>
       </div>
 
-      <form action="https://formsubmit.co/oscarinogonzalino@gmail.com" method="POST">
+      <form id="pqr-form" action="https://formsubmit.co/oscarinogonzalino@gmail.com" method="POST">
         <input type="hidden" name="_subject" value="Nueva PQR desde NEXORA">
         <input type="hidden" name="_template" value="table">
         <input type="hidden" name="_captcha" value="false">
@@ -379,6 +379,22 @@ button {
 </main>
 <script>
   document.getElementById('next-url').value = `${window.location.origin}/enviado.html`;
+  document.getElementById('pqr-form').addEventListener('submit', event => {
+    const formData = new FormData(event.currentTarget);
+    const record = {
+      id: `PQR-${Date.now()}`,
+      fecha: new Date().toISOString(),
+      nombre: formData.get('Nombre completo'),
+      email: formData.get('email'),
+      telefono: formData.get('Telefono'),
+      tipo: formData.get('Tipo de solicitud'),
+      asunto: formData.get('Asunto'),
+      descripcion: formData.get('Descripcion')
+    };
+    const records = JSON.parse(localStorage.getItem('nexora_pqrs') || '[]');
+    records.push(record);
+    localStorage.setItem('nexora_pqrs', JSON.stringify(records));
+  });
 </script>
 </body>
 </html>
