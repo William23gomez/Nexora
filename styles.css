@@ -284,6 +284,7 @@ h1 span{
   background:rgba(155,92,255,.18);color:#d8b4fe;font-size:12px;font-weight:900
 }
 .detail-list li p{color:#eee7fb;font-size:15px;line-height:1.55}
+.modal-cart-button{margin-top:18px;width:100%;border:0;text-align:center}
 .cart-card{
   width:min(940px,100%);max-height:90vh;overflow:auto;
   border:1px solid rgba(192,132,252,.34);border-radius:18px;

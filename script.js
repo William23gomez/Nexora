@@ -167,6 +167,7 @@ const modalDescription = document.getElementById("modal-description");
 const modalFeatures = document.getElementById("modal-features");
 const modalImage = document.getElementById("modal-image");
 const closeModal = document.getElementById("close-modal");
+const modalAddCart = document.getElementById("modal-add-cart");
 const cartModal = document.getElementById("cart-modal");
 const openCartButton = document.getElementById("open-cart");
 const closeCartButton = document.getElementById("close-cart");
@@ -186,6 +187,7 @@ const money = new Intl.NumberFormat("es-CO", {
 });
 
 let cart = JSON.parse(localStorage.getItem("nexora_cart") || "[]");
+let activeProductIndex = null;
 
 function saveCart() {
   localStorage.setItem("nexora_cart", JSON.stringify(cart));
@@ -289,6 +291,7 @@ function hideCart() {
 
 function openProduct(index) {
   const product = products[index];
+  activeProductIndex = index;
   modalCategory.textContent = product.category;
   modalSideCategory.textContent = product.category;
   modalTitle.textContent = product.name;
@@ -310,6 +313,7 @@ function hideModal() {
   modal.classList.remove("active");
   modal.setAttribute("aria-hidden", "true");
   document.body.classList.remove("modal-open");
+  activeProductIndex = null;
 }
 
 document.addEventListener("click", event => {
@@ -353,6 +357,12 @@ document.addEventListener("click", event => {
 });
 
 closeModal.addEventListener("click", hideModal);
+modalAddCart.addEventListener("click", () => {
+  if (activeProductIndex === null) return;
+  addToCart(activeProductIndex);
+  hideModal();
+  openCart();
+});
 openCartButton.addEventListener("click", openCart);
 closeCartButton.addEventListener("click", hideCart);
 clearCartButton.addEventListener("click", () => {
