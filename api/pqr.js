@@ -1,4 +1,4 @@
-const DESTINATION_EMAIL = 'oscarinogonzalino@gmail.com';
+const DESTINATION_EMAIL = process.env.PQR_TO_EMAIL || 'oscarinogonzalino@gmail.com';
 
 module.exports = async function handler(request, response) {
   if (request.method !== 'POST') {
